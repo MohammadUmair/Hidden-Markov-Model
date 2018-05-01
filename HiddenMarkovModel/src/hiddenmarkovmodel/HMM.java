@@ -76,7 +76,6 @@ public class HMM {
         }
         break;
     }
-            System.out.println("count = "+count);
       
       
   }
