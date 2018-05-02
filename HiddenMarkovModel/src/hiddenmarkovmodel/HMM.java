@@ -43,18 +43,18 @@ public class HMM {
 //    double[] emissionProMatForCold = new double[] {.5,.4,.1 };
 //    //OR
     double[][] emissionProMat = new double[][]{
-  { 0 ,  0 ,  0  },
-  { 0 ,  0 ,  0  },
-  {.2 , .4 , .4  },
-  {.5 , .4 , .1  }
+  { 0 ,  0 ,  0  },  //S
+  { 0 ,  0 ,  0  },  //E
+  {.2 , .4 , .4  },  //H
+  {.5 , .4 , .1  }   //C
 };
     
     //
     double[][] transitionProMat = new double[][]{
-  { 0 ,  0  , 0.8 , 0.2 },
-  { 0 ,  1  ,  0  ,  0  },
-  { 0 , 0.1 , 0.6 , 0.3 },
-  { 0 , 0.1 , 0.4 , 0.5 }
+  { 0 ,  0  , 0.8 , 0.2 }, //S
+  { 0 ,  1  ,  0  ,  0  }, //E
+  { 0 , 0.1 , 0.6 , 0.3 }, //H
+  { 0 , 0.1 , 0.4 , 0.5 }  //C
 };
     
     
@@ -66,17 +66,39 @@ public class HMM {
             for(int nextState = 0; nextState < numOfStates; nextState++){
           
             recordHolder3D[transitionNo][previousState][nextState] = transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];  
-            System.out.println(""+recordHolder3D[transitionNo][previousState][nextState]);
+         //   System.out.println(""+recordHolder3D[transitionNo][previousState][nextState]);
 
             //TP(CurState,PreState) X EP(Emission,CurState)
-            count++;
+           // count++;
             }
         }
        //break;
     }
-      System.out.println("count = "+count);
-    
+      //System.out.println("count = "+count);
+      count = 0;
       
+      
+  }
+  
+  void showOutputOfForwardAlgo(){
+      
+      for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
+        System.out.println("transitionNo = "+(transitionNo+1));
+          
+        for(int previousState = 0; previousState < numOfStates; previousState++){
+            System.out.println("From "+ statesName[previousState]);
+                
+            for(int nextState = 0; nextState < numOfStates; nextState++){       
+               System.out.println(""+recordHolder3D[transitionNo][previousState][nextState]);
+               count++;
+            }
+        }
+        System.out.println("count = "+count);
+   
+       //break;
+      }
+        System.out.println("count = "+count);
+   
       
   }
     

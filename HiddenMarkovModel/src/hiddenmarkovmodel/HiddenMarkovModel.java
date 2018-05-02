@@ -20,6 +20,7 @@ public class HiddenMarkovModel {
         
         HMM hmm = new HMM();
         hmm.forwardAlgo();
+        hmm.showOutputOfForwardAlgo();
     }
     
 }
