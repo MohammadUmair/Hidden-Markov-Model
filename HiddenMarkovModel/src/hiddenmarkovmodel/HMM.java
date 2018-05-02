@@ -58,11 +58,12 @@ public class HMM {
 };
     
     double[][] probabiltyMatrix = new double[][]{
-  { 0 ,  0  , 0.8 , 0.2 }, //S
-  { 0 ,  1  ,  0  ,  0  }, //E
-  { 0 , 0.1 , 0.6 , 0.3 }, //H
-  { 0 , 0.1 , 0.4 , 0.5 }  //C
+  //S    E     H    C
+  { 0 ,  0  ,  0 ,  0},
+  { 0 ,  0  ,  0 ,  0}, 
+  { 0 ,  0  ,  0 ,  0}, 
 };
+    //or 
     
     
    Double[][][]  recordHolder3D = new Double[numOfObservations][numOfStates][numOfStates];
@@ -90,28 +91,26 @@ public class HMM {
                     recordHolder3D[transitionNo][previousState][nextState] = 
                     transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];
                 }
+                
                 else{
                     recordHolder3D[transitionNo][previousState][nextState] = 
-                    transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];
-                    double sum = 0.0;
-                    for(int i=0; i<numOfStates; i++){
-                        sum = sum + recordHolder3D[transitionNo-1][i][nextState];
-                    }
-                    recordHolder3D[transitionNo][previousState][nextState] = 
-                            recordHolder3D[transitionNo][previousState][nextState] * sum;
-                  
+                    (transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])])
+                    *(probabiltyMatrix[transitionNo-1][previousState]);
                 }
        
                 System.out.println(""+recordHolder3D[transitionNo][previousState][nextState]);
-                //System.out.println("b "+recordHolder3D[transitionNo][previousState][previousState]);
-            
-            
-                //TP(CurState,PreState) X EP(Emission,CurState)
-                // count++;
             }
     //   break;        
         }
-    //   break;
+        for(int i =0;i<numOfStates; i++){
+            double sum1 = 0;
+            for(int j =0;j<numOfStates; j++){
+                sum1 = sum1 + recordHolder3D[transitionNo][j][i];
+            }
+            probabiltyMatrix[transitionNo][i] = sum1;
+            System.out.println("PM = "+probabiltyMatrix[transitionNo][i]);
+        }
+       //break;
     }
       //System.out.println("count = "+count);
       count = 0;
