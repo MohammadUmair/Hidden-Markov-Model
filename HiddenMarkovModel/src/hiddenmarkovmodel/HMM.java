@@ -60,14 +60,22 @@ public class HMM {
     
    Double[][][]  recordHolder3D = new Double[numOfObservations][numOfStates][numOfStates];
    
+   
+   
+   
+   
   void forwardAlgo(){
+    
+    initialize3DArray();
     for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
         for(int previousState = 0; previousState < numOfStates; previousState++){
             for(int nextState = 0; nextState < numOfStates; nextState++){
-          
-            recordHolder3D[transitionNo][previousState][nextState] = transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];  
+             
+            recordHolder3D[transitionNo][previousState][nextState] = 
+                    (transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])])
+                    *(recordHolder3D[transitionNo][previousState][previousState]);  
          //   System.out.println(""+recordHolder3D[transitionNo][previousState][nextState]);
-
+               
             //TP(CurState,PreState) X EP(Emission,CurState)
            // count++;
             }
@@ -101,6 +109,21 @@ public class HMM {
    
       
   }
+  
+  void initialize3DArray(){
+      for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
+        
+        for(int previousState = 0; previousState < numOfStates; previousState++){
+                
+            for(int nextState = 0; nextState < numOfStates; nextState++){       
+              
+                recordHolder3D[transitionNo][previousState][nextState] = 1.0;
+            }
+        }
+   
+      }
+  }
+  
     
     
 }
