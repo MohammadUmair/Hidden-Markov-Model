@@ -39,9 +39,9 @@ public class HMM {
     String[] statesName = new String[] {"Start","End","Hot","Cold"};
     
     
-    double[] emissionProMatForHot = new double[] {.2,.4,.4 };
-    double[] emissionProMatForCold = new double[] {.5,.4,.1 };
-    //OR
+//    double[] emissionProMatForHot = new double[] {.2,.4,.4 };
+//    double[] emissionProMatForCold = new double[] {.5,.4,.1 };
+//    //OR
     double[][] emissionProMat = new double[][]{
   { 0 ,  0 ,  0  },
   { 0 ,  0 ,  0  },
@@ -49,8 +49,7 @@ public class HMM {
   {.5 , .4 , .1  }
 };
     
-    //double[] emissionProMatForSunny = new double[] {.2,.4,.4 };
-    
+    //
     double[][] transitionProMat = new double[][]{
   { 0 ,  0  , 0.8 , 0.2 },
   { 0 ,  1  ,  0  ,  0  },
@@ -58,24 +57,25 @@ public class HMM {
   { 0 , 0.1 , 0.4 , 0.5 }
 };
     
-   Double[][]  recordHolder = new Double[numOfStates][numOfStates];
+    
+   Double[][][]  recordHolder3D = new Double[numOfObservations][numOfStates][numOfStates];
    
   void forwardAlgo(){
     for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
-        System.err.println("E");
         for(int previousState = 0; previousState < numOfStates; previousState++){
             for(int nextState = 0; nextState < numOfStates; nextState++){
           
-            recordHolder[previousState][nextState] = transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];  
-            System.out.println(""+recordHolder[previousState][nextState]);
+            recordHolder3D[transitionNo][previousState][nextState] = transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];  
+            System.out.println(""+recordHolder3D[transitionNo][previousState][nextState]);
 
             //TP(CurState,PreState) X EP(Emission,CurState)
             count++;
             }
-            break;
         }
-        break;
+       //break;
     }
+      System.out.println("count = "+count);
+    
       
       
   }
@@ -88,7 +88,27 @@ public class HMM {
 
 
 
-
+//Double[][]  recordHolder = new Double[numOfStates][numOfStates];
+//   
+//  void forwardAlgo(){
+//    for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
+//        System.err.println("E");
+//        for(int previousState = 0; previousState < numOfStates; previousState++){
+//            for(int nextState = 0; nextState < numOfStates; nextState++){
+//          
+//            recordHolder[previousState][nextState] = transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];  
+//            System.out.println(""+recordHolder[previousState][nextState]);
+//
+//            //TP(CurState,PreState) X EP(Emission,CurState)
+//            count++;
+//            }
+//            break;
+//        }
+//        break;
+//    }
+//      
+//      
+//  }
 
 
 
