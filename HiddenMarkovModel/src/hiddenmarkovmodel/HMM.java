@@ -12,20 +12,6 @@ import java.util.Arrays;
  * @author Fighter
  */
 
-    //String[] myStringArray = new String[3];
-    //String[] myStringArray = {"a","b","c"};
-    //String[] myStringArray = new String[]{"a","b","c"};
-
-    //int[][] multi = new int[5][10];
-    //
-    //int[][] multi = new int[][]{
-    //  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    //  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    //  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    //  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    //  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-    //};
-
 public class HMM {
     
     int count=0;
@@ -72,27 +58,30 @@ public class HMM {
    
    
    
-  void forwardAlgo(){
+  void forwardAlgo(String input){
     
     initialize3DArray();
     for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
         System.out.println("transitionNo = "+(transitionNo+1));
-        
         for(int previousState = 0; previousState < numOfStates; previousState++){
             System.out.println("From "+ statesName[previousState]);
             
             for(int nextState = 0; nextState < numOfStates; nextState++){
-             
-       //     System.out.println("a "+recordHolder3D[transitionNo][previousState][nextState]);
-        //    System.out.println("a"+transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])]);        
-         //   System.out.println("b"+recordHolder3D[transitionNo][previousState][previousState]);
-        //    System.out.println("b"+recordHolder3D[0][0][0]);
-                if(transitionNo==0){
-                    recordHolder3D[transitionNo][previousState][nextState] = 
-                    transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];
+   
+                if(transitionNo==0&&input!=""){
+                    int Startindex = Arrays.asList(statesName).indexOf(input);
+                           
+                    if(Startindex == previousState){
+                           recordHolder3D[transitionNo][previousState][nextState] = 
+                           transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];
+                    }
                 }
+                else if(transitionNo==0&&input==""){
+                           recordHolder3D[transitionNo][previousState][nextState] = 
+                           transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];  
+                }        
                 
-                else{
+                else if(transitionNo>0) {
                     recordHolder3D[transitionNo][previousState][nextState] = 
                     (transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])])
                     *(probabiltyMatrix[transitionNo-1][previousState]);
@@ -162,69 +151,3 @@ public class HMM {
 }
 
 
-
-
-
-
-
-
-
-//void forwardAlgo(){
-//    
-//    initialize3DArray();
-//    for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
-//        for(int previousState = 0; previousState < numOfStates; previousState++){
-//            for(int nextState = 0; nextState < numOfStates; nextState++){
-//             
-//       
-//        if(previousState==0){
-//            recordHolder3D[transitionNo][previousState][nextState] = 
-//                    transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];
-//        
-//        else{
-//            recordHolder3D[transitionNo][previousState][nextState] = 
-//                    (transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])])
-//                    *(recordHolder3D[transitionNo-1][previousState][nextState]);
-//            
-//            }
-//            break;
-//        }
-//       break;
-//    }
-//      
-//  }
-
-
-
-
-//Double[][]  recordHolder = new Double[numOfStates][numOfStates];
-//   
-//  void forwardAlgo(){
-//    for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
-//        System.err.println("E");
-//        for(int previousState = 0; previousState < numOfStates; previousState++){
-//            for(int nextState = 0; nextState < numOfStates; nextState++){
-//          
-//            recordHolder[previousState][nextState] = transitionProMat[previousState][nextState] * emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])];  
-//            System.out.println(""+recordHolder[previousState][nextState]);
-//
-//            //TP(CurState,PreState) X EP(Emission,CurState)
-//            count++;
-//            }
-//            break;
-//        }
-//        break;
-//    }
-//      
-//      
-//  }
-
-
-
-//            System.out.println(""+previousState);    
-//            System.out.println(""+nextState);
-//            System.out.println(""+Arrays.asList(emmissionName).indexOf(observations[transitionNo]));
-//            System.out.println(""+transitionNo);
-//            System.out.println(observations[transitionNo]);
-//System.out.println(""+emissionProMat[nextState][Arrays.asList(emmissionName).indexOf(observations[transitionNo])]);
-//System.out.println(""+transitionProMat[previousState][nextState]);

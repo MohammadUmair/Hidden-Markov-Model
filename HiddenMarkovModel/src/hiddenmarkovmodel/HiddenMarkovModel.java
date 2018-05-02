@@ -5,6 +5,8 @@
  */
 package hiddenmarkovmodel;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Fighter
@@ -17,9 +19,19 @@ public class HiddenMarkovModel {
     public static void main(String[] args) {
         
         // TODO code application logic here
-        
         HMM hmm = new HMM();
-        hmm.forwardAlgo();
+        
+        Scanner reader = new Scanner(System.in);  // Reading from System.in
+        System.out.println("Enter a start state: ");
+        String n;
+        if((n=reader.next()).equalsIgnoreCase("No")){
+           hmm.forwardAlgo(""); 
+        }
+        else{
+            hmm.forwardAlgo(n);
+        
+        }
+        
         //hmm.showOutputOfForwardAlgo();
     }
     
