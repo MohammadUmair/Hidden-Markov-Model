@@ -31,6 +31,7 @@ public class HiddenMarkovModel {
             hmm.forwardAlgo(n);
         
         }
+        hmm.showlikelihoodMatrix();
         
         //hmm.showOutputOfForwardAlgo();
     }
