@@ -113,7 +113,8 @@ public class HMM {
       for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
         System.out.println("transitionNo = "+(transitionNo+1));
           
-        for(int previousState = 0; previousState < numOfStates; previousState++){
+
+          for(int previousState = 0; previousState < numOfStates; previousState++){
             System.out.println("From "+ statesName[previousState]);
                 
             for(int nextState = 0; nextState < numOfStates; nextState++){       
@@ -153,6 +154,22 @@ public class HMM {
              System.out.print(" "+probabiltyMatrix[i][j]+"  ");
           }
           System.out.println("");
+      }
+  }
+    
+  void propabilityOfEachTransition(){
+      for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
+        
+        for(int previousState = 0; previousState < numOfStates; previousState++){
+                
+            for(int nextState = 0; nextState < numOfStates; nextState++){       
+                System.out.println("");
+                System.out.print("  "+recordHolder3D[transitionNo][previousState][nextState]+"  ");
+                
+            }
+            System.out.println("");
+        }
+   
       }
   }
   
