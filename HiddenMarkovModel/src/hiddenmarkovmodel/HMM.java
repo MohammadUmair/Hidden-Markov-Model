@@ -159,9 +159,9 @@ public class HMM {
     
   void propabilityOfEachTransition(){
       for(int transitionNo = 0; transitionNo < numOfObservations; transitionNo++){
-        
+          System.out.println("Transition No "+(transitionNo+1));
         for(int previousState = 0; previousState < numOfStates; previousState++){
-                
+            System.out.println("From "+statesName[previousState]);    
             for(int nextState = 0; nextState < numOfStates; nextState++){       
                 System.out.println("");
                 System.out.print("  "+recordHolder3D[transitionNo][previousState][nextState]+"  ");
